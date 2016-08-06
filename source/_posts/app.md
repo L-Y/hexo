@@ -1,7 +1,7 @@
-title: app
+title: 关于应用层一些协议的问题
 date: 2016-07-10 21:39:26
 tags: OSI七层网络模型
-title: 关于应用层一些协议的问题
+categories: default 
 ---
 
 #关于一些协议的解释
