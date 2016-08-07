@@ -18,6 +18,8 @@ tags:
 [推酷博客](http://www.tuicool.com/)
 
 [GRUB安装及错误](http://xstarcd.github.io/wiki/Linux/grub_install.html)
+
+[hexo ](https://xuanwo.org/2014/08/14/hexo-usual-problem/)
 # 技术官方/非官方站
 
 [Markdown在线编辑器](https://www.zybuluo.com/mdeditor）
