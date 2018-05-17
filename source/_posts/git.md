@@ -3,7 +3,7 @@ date: 2015-03-23 14:03:48
 categories: git
 tags:
 ---
-## git 命令
+## git 配置相关命令
 ```bash
 git init                                                  # 初始化本地git仓库（创建新仓库）
 git config --global user.name "xxx"                       # 配置用户名
@@ -13,20 +13,32 @@ git config --global color.status auto
 git config --global color.diff auto
 git config --global color.branch auto
 git config --global color.interactive auto
+```
+## git 克隆、增加、提交到、推送等相关命令
+```bash
 git clone git+ssh://git@192.168.53.168/VT.git             # clone远程仓库
+git pull origin master                                    # 获取远程分支master并merge到当前分支
 git status                                                # 查看当前版本状态（是否修改）
 git add xyz                                               # 添加xyz文件至index
 git add .                                                 # 增加当前子目录下所有更改过的文件至index
 git commit -m 'xxx'                                       # 提交
 git commit --amend -m 'xxx'                               # 合并上一次提交（用于反复修改）
 git commit -am 'xxx'                                      # 将add和commit合为一步
+git push origin master                                    # 将当前分支push到远程master分支
+git push origin :hotfixes/BJVEP933                        # 删除远程仓库的hotfixes/BJVEP933分支
+git push --tags                                           # 把所有tag推送到远程仓库
+```
+## git 删除、标签、查看日志相关命令
+```bash
 git rm xxx                                                # 删除index中的文件
 git rm -r *                                               # 递归删除
+git mv README README2                                     # 重命名文件README为README2
 git log                                                   # 显示提交日志
 git log -1                                                # 显示1行日志 -n为n行
 git log -5
 git log --stat                                            # 显示提交日志及相关变动文件
 git log -p -m
+git log --pretty=format:'%h %s' --graph                   # 图示提交日志
 git show dfb02e6e4f2f7b573337763e5c0013802e392818         # 显示某个提交的详细内容
 git show dfb02                                            # 可只用commitid的前几位
 git show HEAD                                             # 显示HEAD提交日志
@@ -35,6 +47,18 @@ git tag                                                   # 显示已存在的ta
 git tag -a v2.0 -m 'xxx'                                  # 增加v2.0的tag
 git show v2.0                                             # 显示v2.0的日志及详细内容
 git log v2.0                                              # 显示v2.0的日志
+git ls-files                                              # 列出git index包含的文件
+git show-branch                                           # 图示当前分支历史
+git show-branch --all                                     # 图示所有分支历史
+git whatchanged                                           # 显示提交历史对应的文件修改
+git reflog                                                # 显示所有提交，包括孤立节点
+git show HEAD@{5}
+git show master@{yesterday}                               # 显示master分支昨天的状态
+git show HEAD~3
+git show -s --pretty=raw 2be7fcb476
+```
+## git 比较文件、创建分支、检出、合并相关命令
+```bash
 git diff                                                  # 显示所有未添加至index的变更
 git diff --cached                                         # 显示所有已添加index但还未commit的变更
 git diff HEAD^                                            # 比较与上一个版本的差异
@@ -58,30 +82,18 @@ git checkout -b devel origin/develop                      # 从远程分支devel
 git checkout -- README                                    # 检出head版本的README文件（可用于修改错误回退）
 git merge origin/master                                   # 合并远程master分支至当前分支
 git cherry-pick ff44785404a8e                             # 合并提交ff44785404a8e的修改
-git push origin master                                    # 将当前分支push到远程master分支
-git push origin :hotfixes/BJVEP933                        # 删除远程仓库的hotfixes/BJVEP933分支
-git push --tags                                           # 把所有tag推送到远程仓库
 git fetch                                                 # 获取所有远程分支（不更新本地分支，另需merge）
 git fetch --prune                                         # 获取所有原创分支并清除服务器上已删掉的分支
-git pull origin master                                    # 获取远程分支master并merge到当前分支
-git mv README README2                                     # 重命名文件README为README2
 git reset --hard HEAD                                     # 将当前版本重置为HEAD（通常用于merge失败回退）
 git rebase
 git branch -d hotfixes/BJVEP933                           # 删除分支hotfixes/BJVEP933（本分支修改已合并到其他分支）
 git branch -D hotfixes/BJVEP933                           # 强制删除分支hotfixes/BJVEP933
-git ls-files                                              # 列出git index包含的文件
-git show-branch                                           # 图示当前分支历史
-git show-branch --all                                     # 图示所有分支历史
-git whatchanged                                           # 显示提交历史对应的文件修改
 git revert dfb02e6e4f2f7b573337763e5c0013802e392818       # 撤销提交dfb02e6e4f2f7b573337763e5c0013802e392818
 git ls-tree HEAD                                          # 内部命令：显示某个git对象
 git rev-parse v2.0                                        # 内部命令：显示某个ref对于的SHA1 HASH
-git reflog                                                # 显示所有提交，包括孤立节点
-git show HEAD@{5}
-git show master@{yesterday}                               # 显示master分支昨天的状态
-git log --pretty=format:'%h %s' --graph                   # 图示提交日志
-git show HEAD~3
-git show -s --pretty=raw 2be7fcb476
+```
+## git暂存等相关命令
+```bash
 git stash                                                 # 暂存当前修改，将所有至为HEAD状态
 git stash list                                            # 查看所有暂存
 git stash show -p stash@{0}                               # 参考第一次暂存
