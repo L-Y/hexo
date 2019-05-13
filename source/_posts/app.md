@@ -1,17 +1,52 @@
-title: 关于应用层一些协议的问题
-date: 2016-07-10 21:39:26
-tags: OSI七层网络模型
-categories: default 
+title: mysql 生成备份文件
+date: 2019-05-13 11:50:26
+tags: 备份文件、mysql
+categories: mysql 
 ---
 
-#关于一些协议的解释
+#脚本如下
 
-HTTP ---  全拼 HyperText Transport Protocol   超文本传输协议
+```mysql
+#! /bin/bash
 
-FTP  ---  全拼 File  Transfer Protocol		  文件传输协议
+#host
+host="127.0.0.1"
+# uname
+user="root"
+# pwd
+userPWD="123456"
+#port
+port="3306"
 
-DNS	 ---  全拼 Domain Name System And Domain Name Service Protocol 域名系统协议
+# dbnames
+dbNames=(dbName1 dbName2)
 
-SMTP ---  全拼 Simple Mail Transefer Protocol 简单邮件传输协议 发送邮件
+# now time
+NOW=`date -d "now" +%Y%m%d%H`
 
-POP3 ---  全拼 Post Office Protocol 3 邮局协议  收取邮件
+# back path
+back_path=/var/wwwroot/mysql/$NOW
+
+# create new back data directory
+mkdir $back_path
+# Add authority to execute
+chmod -R 777 $back_path
+
+# When to Back up Data (one day ago)
+whenDel=`date -d "-1 day" +%Y%m%d%H`
+
+del_path=/var/wwwroot/mysql/$whenDel
+
+# 
+if [ -d $del_path ];
+    then
+        rm -rf $del_path
+fi
+
+# backup 
+for dbName in ${dbNames[*]}
+do
+    dumpSqlFile=$dbName-$back_path.sql.gz
+    mysqldump -h$host:$port -u$user -p$userPWD $dbName | gzip > $back_path/$dumpSqlFile
+done
+```

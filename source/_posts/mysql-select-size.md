@@ -37,11 +37,6 @@ sum(truncate(data_length/1024/1024, 2)) as 'dataLength(MB)',
 sum(truncate(index_length/1024/1024, 2)) as 'indexLength(MB)'
 from information_schema.tables
 where table_schema='mysql';
---------------------- 
-作者：傲雪星枫 
-来源：CSDN 
-原文：https://blog.csdn.net/fdipzone/article/details/80144166 
-版权声明：本文为博主原创文章，转载请附上博文链接！
 ```
 ## 查看指定数据库各表容量大小
 ```sql
