@@ -58,3 +58,8 @@ select * from `ht_invoice_information` where YEAR(create_date)=YEAR(NOW());
 ``` bash
 select * from `ht_invoice_information` where year(create_date)=year(date_sub(now(),interval 1 year));
 ```
+
+# 更新某个字段中存在某字符串
+```mysql
+UPDATE `web` SET `header_img`=REPLACE(`url`, 'httpss', 'https')  WHERE id IN (SELECT aid FROM (SELECT id AS aid  FROM `web` WHERE LOCATE('httpss://',`url`)>0 ) AS a );
+```
